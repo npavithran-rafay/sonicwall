@@ -1,0 +1,124 @@
+#-----------------------------------------------------------------#
+# Configure Terragrunt to automatically store tfstate files in S3 #
+#-----------------------------------------------------------------#
+# terragrunt = {
+#   remote_state {
+#     backend = "s3"
+
+#     config {
+#       encrypt        = false
+#       bucket         = "snwl-production-terraform-state"
+#       key            = "production/frankfurt/infrastructure/vpc/main/terraform.tfstate"
+#       region         = "us-west-2"
+#       dynamodb_table = "production-lock-table"
+
+#       dynamodb_table_tags {
+#         owner = "terragrunt integration"
+#         name  = "Terraform lock table"
+#       }
+#     }
+#   }
+# }
+
+
+
+#---------------------------------------------------------------#
+# VPC resources                                                 #
+#---------------------------------------------------------------#
+
+#VPC ID
+
+# production_vpc_id = "vpc-0fbd212321312369c88"
+# production_vpc_id = "vpc-0a3ed4a473c8c0362"
+
+#"Private subnets mapping has to match your VPC CIDR Block or it will fail
+az-private-subnet-mapping = [
+ 
+  {
+    name = "EU1CENTRALAWS-NSM-10.84.130.X"
+    az   = "us-east-1a"
+    cidr = "192.168.130.0/24"
+    BU   = "NSM"
+  },
+  {
+    name = "EUCENTRALBAWS-NSM-10.84.131.X"
+    az   = "us-east-1b"
+    cidr = "192.168.131.0/24"
+    BU   = "NSM"
+  },
+  {
+    name = "EUCENTRALCAWS-NSM-10.84.132.X"
+    az   = "us-east-1c"
+    cidr = "192.168.132.0/24"
+    BU   = "NSM"
+  },
+]
+
+
+#----------------------------------------------------#
+# Security Group LB TCP rule                         #
+#----------------------------------------------------#
+
+#allow all ports from outside
+sg_cass_lb_tcp_inbound_ports = "25,51212,8"
+
+sg_cass_lb_tcp_protocol = "TCP"
+
+cass_lb_tcp_ingress_cidr = ["0.0.0.0/0"]
+
+#--------------------------------------------------------------#
+# Security Group LB TCP rule for internal access to the servers
+#-------------------------------------------------------------#
+sg_cass_lb_tcp_internal_inbound_ports = "22,25,80,443"
+
+sg_cass_lb_tcp_protocol = "TCP"
+
+cass_lb_tcp_ingress_cidr_internal = ["10.50.18.0/24", "10.11.0.0/16", "10.21.0.0/16", "10.100.0.0/16", "10.84.0.0/16", "10.206.34.0/24"]
+
+sg_cass_lb_tcp_description_internal = "Allow SSH_SMTP_HTTP_HTTPS from internal IPs Only"
+
+#-----------------------------------------------------#
+# Linux Security Group                                #
+#-----------------------------------------------------#
+
+linux_sg_name = "EUCENTRALAWS-PRODUCTION-LINUX"
+
+linux_sg_description = "LINUX SG GROUP FOR ALL PUBLIC SERVERS"
+
+#----------------------------------------------------#
+# Security Group Linux TCP rule                      #
+#----------------------------------------------------#
+
+#allow all ports control by the VPN firewall rule
+sg_linux_tcp_inbound_ports = "0"
+
+sg_linux_tcp_protocol = "-1"
+
+linux_tcp_ingress_cidr = ["10.50.18.0/24", "10.11.0.0/16", "10.21.0.0/16", "10.100.0.0/16", "10.84.0.0/16", "10.206.34.0/24", "10.113.0.0/16"]
+
+sg_linux_description = "allow internal access"
+
+#----------------------------------------------------#
+# Security Group Linux TCP 9080 rule for CAS API     #
+#----------------------------------------------------#
+
+#allow port 9080 rule for cas API
+sg_linux_9080_tcp_inbound_ports = "9080"
+
+sg_linux_9080_tcp_protocol = "TCP"
+
+linux_tcp_9080_ingress_cidr = ["0.0.0.0/0"]
+
+sg_linux_9080_description = "allow access to port 9080 for CAS API"
+
+#----------------------------------------------------------------------------------#
+# CGMS Security Group Ingress rule allow Redshift  #
+##---------------------------------------------------------------------------------#
+
+sg_cgms_redshift_inbound_ports = "5439"
+
+sg_cgms_redshift_protocol = "tcp"
+
+sg_cgms_redshift_ingress_cidr = ["35.158.127.160/27"]
+
+sg_cgms_redshift_description = "redshift-firehose access"
