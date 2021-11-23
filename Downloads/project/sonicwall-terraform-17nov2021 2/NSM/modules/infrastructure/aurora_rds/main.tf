@@ -1,0 +1,38 @@
+resource "aws_rds_cluster" "postgresql" {
+  cluster_identifier      = "${var.cluster_identifier}"
+  engine                  = "${var.engine}"
+  engine_version          = "${var.engine_version}"
+  database_name           = "${var.database_name}"
+  master_username         = "${var.master_username}"
+  master_password         = "${var.master_password}"
+  iam_roles               = "${var.iam_roles}"
+  iam_database_authentication_enabled = "${var.iam_database_authentication_enabled}"
+  snapshot_identifier = "${var.snapshot_identifier}"
+  vpc_security_group_ids = "${var.vpc_security_group_ids}"
+  db_subnet_group_name   = "${var.db_subnet_group_name}"
+  db_cluster_parameter_group_name   = "${var.parameter_group_name}"
+  availability_zones   = "${var.availability_zone}"
+  apply_immediately           = "${var.apply_immediately}"
+  deletion_protection = "${var.deletion_protection}"
+  final_snapshot_identifier = "${var.final_snapshot_identifier}"
+  backup_retention_period = "${var.backup_retention_period}"
+  preferred_backup_window = "${var.preferred_backup_window}"
+  preferred_maintenance_window = "${var.preferred_maintenance_window}"
+  tags = { Environment = "${var.Environment}", Name = "${var.cluster_identifier}", BU = "${var.BU}" }
+  skip_final_snapshot         = "${var.skip_final_snapshot}"
+}
+resource "aws_rds_cluster_instance" "mypostgresql01" {
+  identifier         = "${var.identifier}"
+  engine             = "${var.engine}"
+  engine_version     = "${var.engine_version}"
+  cluster_identifier = "${aws_rds_cluster.postgresql.id}"
+  instance_class     = "${var.instance_class}"
+  apply_immediately  = "${var.apply_immediately}"
+  publicly_accessible = "${var.publicly_accessible}"
+  monitoring_role_arn = "${var.monitoring_role_arn}"
+  monitoring_interval  = "${var.monitoring_interval}"
+  promotion_tier      = "${var.promotion_tier}"
+  db_parameter_group_name = "${var.db_parameter_group_name}"
+  auto_minor_version_upgrade = "${var.auto_minor_version_upgrade}"
+  tags = { Environment = "${var.Environment}", Name = "${var.identifier}", BU = "${var.BU}" }
+}

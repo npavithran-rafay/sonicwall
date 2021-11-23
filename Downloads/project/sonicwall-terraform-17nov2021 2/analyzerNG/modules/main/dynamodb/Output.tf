@@ -1,0 +1,23 @@
+
+output "arn" {
+  description = "ARN for dynamodb"
+  value = [module.dynamodb_table.this_dynamodb_table_arn,module.alert_dynamodb_table.this_dynamodb_table_arn,module.trafficstats_dynamodb_table.this_dynamodb_table_arn,module.serial_dynamodb_table.this_dynamodb_table_arn,module.alertconfig_dynamodb_table.this_dynamodb_table_arn,module.trafficalerts_dynamodb_table.this_dynamodb_table_arn,module.trafficstatsDebug_dynamodb_table.this_dynamodb_table_arn,module.ANGRealtime_table.this_dynamodb_table_arn]
+}
+
+output "id" {
+  value = [module.dynamodb_table.this_dynamodb_table_id,module.alert_dynamodb_table.this_dynamodb_table_id,module.trafficstats_dynamodb_table.this_dynamodb_table_id,module.serial_dynamodb_table.this_dynamodb_table_id,module.alertconfig_dynamodb_table.this_dynamodb_table_id,module.trafficalerts_dynamodb_table.this_dynamodb_table_id,module.trafficstatsDebug_dynamodb_table.this_dynamodb_table_id,module.ANGRealtime_table.this_dynamodb_table_id]
+}
+
+output "dynamodb_table_stream_arn" {
+  description = "Dynamodb table write_capacity"
+  value = [module.dynamodb_table.this_dynamodb_table_stream_arn,module.alert_dynamodb_table.this_dynamodb_table_stream_arn,module.trafficstats_dynamodb_table.this_dynamodb_table_stream_arn,module.serial_dynamodb_table.this_dynamodb_table_stream_arn,module.alertconfig_dynamodb_table.this_dynamodb_table_stream_arn,module.trafficalerts_dynamodb_table.this_dynamodb_table_stream_arn,module.trafficstatsDebug_dynamodb_table.this_dynamodb_table_stream_arn,module.ANGRealtime_table.this_dynamodb_table_id]
+}
+
+output "dynamodb_table_stream_label" {
+  description = "Dynamodb table read_capacity"
+  value = [module.dynamodb_table.this_dynamodb_table_stream_label,module.alert_dynamodb_table.this_dynamodb_table_stream_label,module.trafficstats_dynamodb_table.this_dynamodb_table_stream_label,module.serial_dynamodb_table.this_dynamodb_table_stream_label,module.alertconfig_dynamodb_table.this_dynamodb_table_stream_label,module.trafficalerts_dynamodb_table.this_dynamodb_table_stream_label,module.trafficstatsDebug_dynamodb_table.this_dynamodb_table_stream_label,module.ANGRealtime_table.this_dynamodb_table_id]
+}
+
+
+
+
