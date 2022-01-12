@@ -1,0 +1,9 @@
+region = "us-east-2"
+kinesis_stream_names = ["analyzerng_stream" , "analyzerng_stream_url_ng" , "analyzerng_stream_urlrating"]
+kinesis_iterator_age_error_threshold = "1000000"
+kinesis_iterator_age_error_evaluation_periods = "1"
+kinesis_iterator_age_error_period  = "300"
+name         = "redshift-analyzerng-cluster"
+cpu_threshold  = "1000000"
+redshift_evaluation_periods = "1"
+redshift_periods  = "300"

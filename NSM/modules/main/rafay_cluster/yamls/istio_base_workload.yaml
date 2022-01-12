@@ -1,0 +1,7 @@
+name: istio 
+namespace: istio-system
+project: sonicwall-terraform
+type: Helm3
+clusters: rafay-fra-eks-production-general-cluster
+payload: ./base-1.12.1.tgz
+#values: ""

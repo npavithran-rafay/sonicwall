@@ -1,0 +1,54 @@
+# #-----------------------------------------------------------------#
+# # Configure Terragrunt to automatically store tfstate files in S3 #
+# #-----------------------------------------------------------------#
+# # terragrunt = {
+# #   remote_state {
+# #     backend = "s3"
+
+# #     config {
+# #       encrypt        = false
+# #       bucket         = "snwl-production-terraform-state"
+# #       key            = "production/Frankfurt/redshift/nsm/terraform.tfstate"
+# #       region         = "us-west-2"
+# #       dynamodb_table = "my-lock-table"
+
+# #       dynamodb_table_tags {
+# #         owner = "terragrunt integration"
+# #         name  = "Terraform lock table"
+# #       }
+# #     }
+# #   }
+# # }
+
+
+# #---------------------------------------------------------------#
+# #aws provider info                                              #
+# #---------------------------------------------------------------#
+# aws_access_key = ""
+
+# aws_secret_key = ""
+
+# #Region for the VPC
+# region = "eu-central-1"
+
+
+# ####################################
+# ## Variables for redshift Cluster ##
+# ####################################
+
+# subnet_grp_enabled         = true
+# subgrp_name                = "redshift-subnet-group"
+# subnet_ids                 = ["subnet-0bcff0bc99c3fb55d" , "subnet-01e3ca4ab4443a814" ,"subnet-0ccba351216d1ff58"]
+# parameter_gname_enabled    = true
+# parameter_gname            = "redshift-parameter-group"
+# name                       = "redshift-cluster"
+# database_name              = "report"
+# isencrypted                = false
+# master_password            = "redshift4FRAIsNowLive"
+# master_username            = "redshiftadmin"
+# node_type                  = "dc2.large"
+# number_of_nodes            = "4"
+# enhancedvpc                = false
+# publicly_accessible        = true
+# BU                         = "NSM"
+# securitygrp_ids            = ["sg-05ea932cc63eb6904"]
